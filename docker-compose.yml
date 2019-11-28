@@ -1,0 +1,29 @@
+version: '2.0'
+services: 
+    rabbitmq:
+        image: 'bitnami/rabbitmq:latest'
+        ports: 
+            - '4369:4369'
+            - '5672:5672'
+            - '25672:25672'
+            - '15672:15672'
+        environment: 
+            - RABBITMQ_USERNAME=rizal
+            - RABBITMQ_PASSWORD=rizal123
+        container_name: rabbitmq
+    disker:
+        build: ./disker/.
+        environment:
+            - RABBITMQ_HOST=30.12.20.19
+            - RABBITMQ_PORT=5672
+            - RABBITMQ_USERNAME=rizal
+            - RABBITMQ_PASSWORD=rizal123
+        depends_on:
+            - "rabbitmq"
+        command: ["/wait-for-it.sh", "rabbitmq:5672", "--", "disker"]
+networks:
+    static-network:
+        ipam:
+            config:
+                - subnet: 30.12.20.0/16
+    

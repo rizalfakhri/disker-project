@@ -1,0 +1,6 @@
+[submodule "disker"]
+	path = disker
+	url = https://github.com/rizalfakhri/disker
+[submodule "disker-client"]
+	path = disker-client
+	url = https://github.com/rizalfakhri/disker-client
